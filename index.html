@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Mini AI Chatbot Study - Fixed</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
+  body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background-color: #12131a;
+    color: #eee;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+  header {
+    background: linear-gradient(90deg, #7928ca, #ff0080);
+    padding: 1rem 2rem;
+    text-align: center;
+    font-size: 1.8rem;
+    font-weight: 700;
+  }
+  main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    max-width: 700px;
+    margin: 1rem auto 2rem auto;
+    width: 100%;
+    background: #1f1f2f;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(255,0,128,0.3);
+  }
+  #chat {
+    flex: 1;
+    overflow-y: auto;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .message {
+    max-width: 80%;
+    padding: 1rem;
+    border-radius: 12px;
+    line-height: 1.4;
+    font-size: 1rem;
+    word-wrap: break-word;
+  }
+  .user {
+    align-self: flex-end;
+    background: #ff0080;
+    color: white;
+    border-bottom-right-radius: 0;
+  }
+  .bot {
+    align-self: flex-start;
+    background: #444463;
+    color: #ddd;
+    border-bottom-left-radius: 0;
+  }
+  form {
+    display: flex;
+    padding: 1rem 1.5rem;
+    background: #12131a;
+    border-top: 1px solid #33334a;
+    border-radius: 0 0 12px 12px;
+  }
+  input[type="text"] {
+    flex: 1;
+    padding: 0.8rem 1rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1rem;
+    outline: none;
+    background-color: #2c2c3e;
+    color: #eee;
+  }
+  button {
+    background: #ff0080;
+    border: none;
+    color: white;
+    font-weight: 700;
+    padding: 0 1.5rem;
+    border-radius: 50px;
+    margin-left: 1rem;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background: #e60073;
+  }
+  footer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  /* Scrollbar styling */
+  #chat::-webkit-scrollbar {
+    width: 8px;
+  }
+  #chat::-webkit-scrollbar-track {
+    background: #12131a;
+  }
+  #chat::-webkit-scrollbar-thumb {
+    background: #ff0080;
+    border-radius: 4px;
+  }
+</style>
+</head>
+<body>
+<header>Mini AI Chatbot Study</header>
+<main>
+  <div id="chat" aria-live="polite" aria-label="Chat messages"></div>
+  <form id="chatForm" aria-label="Send message form">
+    <input type="text" id="userInput" autocomplete="off" placeholder="Type your message here..." aria-required="true" aria-label="Message input" />
+    <button type="submit" aria-label="Send message">Send</button>
+  </form>
+</main>
+<footer>
+  &copy; 2024 Mini AI Chatbot &nbsp;|&nbsp; Created for your study
+</footer>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const chat = document.getElementById('chat');
+    const form = document.getElementById('chatForm');
+    const input = document.getElementById('userInput');
+
+    function getBotResponse(message) {
+      const msg = message.toLowerCase().trim();
+
+      if (!msg) {
+        return "Please say something so I can help!";
+      }
+
+      if (msg.includes('hello') || msg.includes('hi')) {
+        return "Hello! How can I assist you today?";
+      }
+
+      if (msg.includes('your name')) {
+        return "I'm a Mini AI chatbot made for your study project.";
+      }
+
+      if (msg.includes('help')) {
+        return "I can answer simple questions or chat with you. Try asking about me.";
+      }
+
+      if (msg.includes('how are you')) {
+        return "I'm just code, but I'm doing great! Thanks for asking.";
+      }
+
+      if (msg.includes('study')) {
+        return "Studying AI is fun! Keep practicing and learning.";
+      }
+
+      if (msg.includes('thank')) {
+        return "You're welcome! Let me know if you need anything else.";
+      }
+
+      if (msg.includes('bye')) {
+        return "Goodbye! Have a great day studying!";
+      }
+
+      return "Sorry, I didn't quite get that. Try asking something else or say 'help'.";
+    }
+
+    function appendMessage(text, sender) {
+      const msgDiv = document.createElement('div');
+      msgDiv.classList.add('message', sender);
+      msgDiv.textContent = text;
+      chat.appendChild(msgDiv);
+      chat.scrollTop = chat.scrollHeight;
+    }
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let userText = input.value.trim();
+      if (!userText) return;
+      appendMessage(userText, 'user');
+      input.value = '';
+      setTimeout(() => {
+        const botReply = getBotResponse(userText);
+        appendMessage(botReply, 'bot');
+      }, 600);
+    });
+
+    // Greet user on load
+    appendMessage("Hello! I'm your Mini AI chatbot. Type 'help' to get started.", 'bot');
+  });
+</script>
+</body>
+</html>
+
