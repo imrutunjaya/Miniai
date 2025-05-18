@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Mini AI Chatbot Study - Fixed</title>
+<title>Mini AI Study Chatbot</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap');
   body {
@@ -26,7 +26,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-    max-width: 700px;
+    max-width: 720px;
     margin: 1rem auto 2rem auto;
     width: 100%;
     background: #1f1f2f;
@@ -113,16 +113,16 @@
 </style>
 </head>
 <body>
-<header>Mini AI Chatbot Study</header>
+<header>Mini AI Study Chatbot</header>
 <main>
   <div id="chat" aria-live="polite" aria-label="Chat messages"></div>
   <form id="chatForm" aria-label="Send message form">
-    <input type="text" id="userInput" autocomplete="off" placeholder="Type your message here..." aria-required="true" aria-label="Message input" />
+    <input type="text" id="userInput" autocomplete="off" placeholder="Ask me anything about your studies..." aria-required="true" aria-label="Message input" />
     <button type="submit" aria-label="Send message">Send</button>
   </form>
 </main>
 <footer>
-  &copy; 2024 Mini AI Chatbot &nbsp;|&nbsp; Created for your study
+  &copy; 2024 Mini AI Study Chatbot &nbsp;|&nbsp; Created for your study
 </footer>
 <script>
   document.addEventListener('DOMContentLoaded', () => {
@@ -137,35 +137,87 @@
         return "Please say something so I can help!";
       }
 
-      if (msg.includes('hello') || msg.includes('hi')) {
-        return "Hello! How can I assist you today?";
+      // Greetings and basics
+      if (msg.match(/^(hi|hello|hey|good morning|good evening|good afternoon)$/)) {
+        return "Hello! I'm your study assistant. Ask me about math, science, or other topics.";
       }
 
       if (msg.includes('your name')) {
-        return "I'm a Mini AI chatbot made for your study project.";
+        return "I'm your Mini AI Study Chatbot.";
       }
 
       if (msg.includes('help')) {
-        return "I can answer simple questions or chat with you. Try asking about me.";
-      }
-
-      if (msg.includes('how are you')) {
-        return "I'm just code, but I'm doing great! Thanks for asking.";
-      }
-
-      if (msg.includes('study')) {
-        return "Studying AI is fun! Keep practicing and learning.";
+        return "Just ask any question about Math, Science, History, or other study topics!";
       }
 
       if (msg.includes('thank')) {
-        return "You're welcome! Let me know if you need anything else.";
+        return "You're very welcome! Keep studying hard.";
       }
 
-      if (msg.includes('bye')) {
-        return "Goodbye! Have a great day studying!";
+      if (msg.includes('bye') || msg.includes('goodbye')) {
+        return "Goodbye! Study well and come back anytime.";
       }
 
-      return "Sorry, I didn't quite get that. Try asking something else or say 'help'.";
+      // Math Questions
+      if (msg.includes('pythagoras')) {
+        return "The Pythagorean theorem states that in a right triangle, the square of the hypotenuse equals the sum of the squares of the other two sides: a² + b² = c².";
+      }
+
+      if (msg.includes('quadratic formula')) {
+        return "The quadratic formula to solve ax² + bx + c = 0 is x = (-b ± √(b² - 4ac)) / (2a).";
+      }
+
+      if (msg.match(/what is pi/)) {
+        return "Pi (π) is a mathematical constant approximately equal to 3.14159, representing the ratio of a circle's circumference to its diameter.";
+      }
+
+      if (msg.includes('derivative')) {
+        return "The derivative represents the rate of change of a function with respect to a variable. It's a fundamental concept in calculus.";
+      }
+
+      // Science Questions
+      if (msg.includes('photosynthesis')) {
+        return "Photosynthesis is the process by which green plants use sunlight to synthesize foods from carbon dioxide and water, producing oxygen as a byproduct.";
+      }
+
+      if (msg.includes('newton\'s second law')) {
+        return "Newton's second law states that Force equals mass times acceleration: F = m × a.";
+      }
+
+      if (msg.includes('atoms')) {
+        return "Atoms are the basic units of matter, consisting of a nucleus of protons and neutrons surrounded by electrons.";
+      }
+
+      if (msg.includes('speed of light')) {
+        return "The speed of light in vacuum is exactly 299,792,458 meters per second.";
+      }
+
+      // History/General
+      if (msg.includes('who discovered america')) {
+        return "America was discovered by Christopher Columbus in 1492.";
+      }
+
+      if (msg.includes('world war 2')) {
+        return "World War II was a global war that lasted from 1939 to 1945 involving most of the world's countries.";
+      }
+
+      if (msg.includes('gravity')) {
+        return "Gravity is a force that attracts two bodies toward each other. On Earth, it gives weight to physical objects.";
+      }
+
+      if (msg.includes('define ecosystem')) {
+        return "An ecosystem is a community of living organisms together with the nonliving components of their environment interacting as a system.";
+      }
+
+      // If question includes "explain" or "what is" or "define"
+      const explainMatch = msg.match(/(explain|what is|define) (.+)/);
+      if (explainMatch) {
+        const term = explainMatch[2].trim();
+        return `"${term}" is an important concept. You can check your textbooks or trusted websites like Khan Academy or Wikipedia for detailed explanation. Feel free to ask about specific topics!`;
+      }
+
+      // Default fallback
+      return "Sorry, I don't have an answer to that right now. Try asking about math formulas, science facts, or study tips!";
     }
 
     function appendMessage(text, sender) {
@@ -188,10 +240,9 @@
       }, 600);
     });
 
-    // Greet user on load
-    appendMessage("Hello! I'm your Mini AI chatbot. Type 'help' to get started.", 'bot');
+    // Friendly greeting on load
+    appendMessage("Hello! I'm your Mini AI Study Chatbot. Ask me questions about math, science, history, and more. Type 'help' if you need guidance.", 'bot');
   });
 </script>
 </body>
 </html>
-
